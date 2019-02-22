@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux'
 import _ from 'lodash';
-import { View, Text, ScrollView } from 'react-native';
-import { Button } from './common';
+import { View, Text, ScrollView, TextInput } from 'react-native';
+import { Button, Input } from './common';
 import ColumnLabels from './columnLabels';
 import Person from './Person';
 import { calculate, addPerson, deletePerson } from '../actions/actions';
@@ -39,7 +39,7 @@ class PersonList extends Component {
 		return(
 			<View style={{flex:1}}>
 				<ColumnLabels />
-				<View style={{height: 350}}>
+				<View style={{height: 600}}>
 					<ScrollView 
 						style={{flexGrow:0}}
 						ref={ref => this.scrollView = ref}
@@ -49,6 +49,23 @@ class PersonList extends Component {
 					>
 						{this.renderPersons()}
 					</ScrollView>
+					<View style={styles.billInputContainerStyle}>
+						<Input 
+							label="Subtotal"
+							placeholder="0.00"
+							prefix="$"
+						/>
+						<Input 
+							label="Tax"
+							placeholder="0.00"
+							prefix="$"
+						/>
+						<Input 
+							label="Tip"
+							placeholder="0"
+							prefix="%"
+						/>
+					</View>
 					<View style={styles.plusMinusContainerStyle}>
 						<Button onPress={() => this.onAdd()}>+</Button>
 						<Button onPress={() => this.onDelete()}>-</Button>
@@ -65,6 +82,10 @@ const styles = {
 		flexDirection: 'row',
 		width: '50%',
 		alignSelf: 'center'
+	},
+	billInputContainerStyle: {
+		flexDirection: 'row',
+		justifyContent:'space-around'
 	}
 };
 

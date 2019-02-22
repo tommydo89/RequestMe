@@ -20,7 +20,7 @@ class Person extends Component {
 
 	render() {
 		console.log(this.props);
-		const { containerStyle, numStyle, nameStyle, subTotalStyle, totalStyle } = styles;
+		const { containerStyle, numStyle, nameStyle, subTotalContainerStyle, subTotalTextStyle, totalStyle } = styles;
 		const { index, name, subtotal, total, uuid } = this.props.person;
 		const { inputToFocus, inputFocus, changeInputFocus} = this.props;
 		
@@ -36,15 +36,18 @@ class Person extends Component {
 						onFocus={() => changeInputFocus(index, "name")}
 						onSubmitEditing={() => this.changeFocusHelper(index, "subtotal")}
 					/>
-					<TextInput
-						placeholder="$0.00"
-						ref={(inputToFocus == "subtotal") ? inputFocus : null}
-						style={subTotalStyle}
-						value={subtotal}
-						onChangeText={(text) => this.onChangeText(text, uuid, "subtotal")}
-						onFocus={() => changeInputFocus(index, "subtotal")}
-						onSubmitEditing={() => this.changeFocusHelper(index+1, "name")}
-					/>
+					<View style={subTotalContainerStyle}>
+						<Text>$</Text>
+						<TextInput
+							placeholder="0.00"
+							ref={(inputToFocus == "subtotal") ? inputFocus : null}
+							value={subtotal}
+							style={subTotalTextStyle}
+							onChangeText={(text) => this.onChangeText(text, uuid, "subtotal")}
+							onFocus={() => changeInputFocus(index, "subtotal")}
+							onSubmitEditing={() => this.changeFocusHelper(index+1, "name")}
+						/>
+					</View>
 					<Text style={totalStyle}>{total}</Text>
 				</View>
 		);
@@ -75,21 +78,22 @@ const styles = {
 		borderWidth: 1,
 		borderRadius: 2,
 		lineHeight:23,
-		height: 40,
 		textAlign: 'center',
 		textAlignVertical: 'center',
 		fontSize: 18
 	},
-	subTotalStyle: {
+	subTotalContainerStyle: {
 		color: '#000',
-		flex: 2,
 		borderColor: '#ddd',
 		borderWidth: 1,
 		marginLeft: 10,
+		paddingLeft: 5,
 		borderRadius: 2,
-		lineHeight:23,
-		height: 40,
-		width:100,
+		alignItems: 'center',
+		flexDirection: 'row',
+		flex:2
+	},
+	subTotalTextStyle:{
 		textAlign: 'center',
 		textAlignVertical: 'center',
 		fontSize: 18
