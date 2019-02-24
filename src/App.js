@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Provider } from 'react-redux';
 import { createStore } from 'redux';
-import { View } from 'react-native';
+import { View, Keyboard, TouchableWithoutFeedback } from 'react-native';
 import { Header } from './components/common';
 import PersonList from './components/PersonList';
 import inputReducer from './reducers/inputReducer';
@@ -14,12 +14,14 @@ class App extends Component {
 
 		return (
 			<Provider store={store}>
-				<View style={{flex:1}}>
-					<Header headerText="RequestMe" />
-					<PersonList />
-					<BillInput />
-					<AllButtons />
-				</View>
+				<TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
+					<View style={{flex:1}}>
+						<Header headerText="RequestMe" />
+						<PersonList />
+						<BillInput />
+						<AllButtons />
+					</View>
+				</TouchableWithoutFeedback>
 			</Provider>
 		);
 	};

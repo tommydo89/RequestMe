@@ -28,6 +28,7 @@ class PersonList extends Component {
 				<ColumnLabels />
 				<View style={{flex:1}}>
 					<ScrollView 
+						keyboardShouldPersistTaps="never"
 						style={{flexGrow:0}}
 						ref={ref => this.scrollView = ref}
 						onContentSizeChange={(contentWidth, contentHeight)=>{        
