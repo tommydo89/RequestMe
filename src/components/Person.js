@@ -2,12 +2,12 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Text, View, TextInput, Keyboard } from 'react-native';
 import { CardSection, Input } from './common';
-import { updateInput, changeInputFocus } from '../actions/actions';
+import { updatePerson, changeInputFocus } from '../actions/actions';
 
 class Person extends Component {
 
 	onChangeText(text, uuid, inputType) {
-		this.props.updateInput(text, uuid, inputType);
+		this.props.updatePerson(text, uuid, inputType);
 	}
 
 	changeFocusHelper(nextIndex, nextInputType) {
@@ -39,6 +39,7 @@ class Person extends Component {
 					<View style={subTotalContainerStyle}>
 						<Text>$</Text>
 						<TextInput
+							keyboardType='numeric'
 							placeholder="0.00"
 							ref={(inputToFocus == "subtotal") ? inputFocus : null}
 							value={subtotal}
@@ -125,4 +126,4 @@ const mapStateToProps = (state, ownProps) => {
 };
 
 
-export default connect(mapStateToProps, { updateInput, changeInputFocus })(Person);
+export default connect(mapStateToProps, { updatePerson, changeInputFocus })(Person);

@@ -5,6 +5,8 @@ import { View } from 'react-native';
 import { Header } from './components/common';
 import PersonList from './components/PersonList';
 import inputReducer from './reducers/inputReducer';
+import BillInput from './components/BillInput';
+import AllButtons from './components/AllButtons';
 
 class App extends Component {
 	render() {
@@ -15,6 +17,8 @@ class App extends Component {
 				<View style={{flex:1}}>
 					<Header headerText="RequestMe" />
 					<PersonList />
+					<BillInput />
+					<AllButtons />
 				</View>
 			</Provider>
 		);

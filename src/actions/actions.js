@@ -1,14 +1,16 @@
 import {
-	UPDATE_INPUT,
+	UPDATE_PERSON,
 	CHANGE_INPUT_FOCUS,
 	CALCULATE,
 	ADD_PERSON,
-	DELETE_PERSON
+	DELETE_PERSON,
+	UPDATE_SUB_TAX_TIP,
+	RESET
 } from './types';
 
-export const updateInput = (text, uuid, inputType) => {
+export const updatePerson = (text, uuid, inputType) => {
 	return {
-		type: UPDATE_INPUT,
+		type: UPDATE_PERSON,
 		payload: {text, uuid, inputType}
 	};
 };
@@ -35,5 +37,18 @@ export const addPerson = () => {
 export const deletePerson = () => {
 	return {
 		type: DELETE_PERSON
+	};
+};
+
+export const updateSubTaxTip = (type, value) => {
+	return {
+		type: UPDATE_SUB_TAX_TIP,
+		payload: {type, value}
+	}
+}
+
+export const reset = () => {
+	return {
+		type: RESET
 	};
 };

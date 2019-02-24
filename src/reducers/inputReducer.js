@@ -1,5 +1,5 @@
 import uuidv1 from 'uuid/v1';
-import { UPDATE_INPUT, CHANGE_INPUT_FOCUS, CALCULATE, ADD_PERSON, DELETE_PERSON } from '../actions/types';
+import { UPDATE_PERSON, CHANGE_INPUT_FOCUS, CALCULATE, ADD_PERSON, DELETE_PERSON, UPDATE_SUB_TAX_TIP, RESET } from '../actions/types';
 
 var initial_persons = {};
 
@@ -14,10 +14,13 @@ for (i = 1; i <= 5; i++) {
 
 const INITIAL_STATE = {
 	persons: initial_persons,
-	focused: 1
+	focused: 1,
+	overall_subtotal: '',
+	tax: '',
+	tip: ''
 };
 
-const updateInput = (state, action) => {
+const updatePerson = (state, action) => {
 	const { text, uuid, inputType} = action.payload;
 	const stateCopy = {
 		...state,
@@ -45,9 +48,10 @@ const calculate = (state) => {
 		...state,
 		persons: {...state.persons}
 	};
+	const percent_tax = state.tax / state.overall_subtotal;
 	Object.keys(state.persons).forEach((personID) => {
 		const person = {...stateCopy.persons[personID]};
-		const total = (person.subtotal * 1.18 + (person.subtotal * 0.05)).toFixed(2);
+		const total = (person.subtotal * (1+percent_tax) * (1+ (state.tip/100))).toFixed(2);
 		person.total = total;
 		updatedPersons[personID] = person;
 	})
@@ -91,11 +95,23 @@ const deletePerson = (state) => {
 	return stateCopy;
 };
 
+const updateSubTaxTip = (state, action) => {
+	return {
+		...state,
+		focused: {},
+		[action.payload.type]: action.payload.value
+	};
+};
+
+const reset = (state) => {
+	return INITIAL_STATE;
+};
+
 export default (state = INITIAL_STATE, action) => {
 	console.log(action);
 	switch (action.type) {
-		case UPDATE_INPUT:
-			return updateInput(state, action);
+		case UPDATE_PERSON:
+			return updatePerson(state, action);
 		case CHANGE_INPUT_FOCUS:
 			return changeInputFocus(state, action);
 		case CALCULATE:
@@ -104,6 +120,10 @@ export default (state = INITIAL_STATE, action) => {
 			return addPerson(state);
 		case DELETE_PERSON:
 			return deletePerson(state);
+		case UPDATE_SUB_TAX_TIP:
+			return updateSubTaxTip(state, action);
+		case RESET:
+			return reset(state);
 		default:
 			return state;
 	}
