@@ -27,8 +27,8 @@ class BillInput extends Component {
 					label="Tip"
 					placeholder="0"
 					prefix="%"
-					value={this.props.tip}
-					onChangeText={(text) => this.props.updateSubTaxTip('tip', text)}
+					value={this.props.percent_tip}
+					onChangeText={(text) => this.props.updateSubTaxTip('percent_tip', text)}
 				/>
 			</View>
 		)
@@ -47,7 +47,7 @@ const mapStateToProps = state => {
 	return {
 		overall_subtotal: state.overall_subtotal,
 		tax: state.tax,
-		tip: state.tip
+		percent_tip: state.percent_tip
 	};
 };
 

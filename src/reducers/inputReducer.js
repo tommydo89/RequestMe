@@ -8,16 +8,18 @@ for (i = 1; i <= 5; i++) {
 		name: '',
 		index: i,
 		subtotal: '',
-		total: '-'
+		total: '-',
+		error: false
 	}
 };
 
 const INITIAL_STATE = {
 	persons: initial_persons,
 	focused: 1,
-	overall_subtotal: '',
 	tax: '',
-	tip: ''
+	percent_tip: '',
+	total_tip: '',
+	total_bill: ''
 };
 
 const updatePerson = (state, action) => {
@@ -43,21 +45,53 @@ const changeInputFocus = (state, action) => {
 };
 
 const calculate = (state) => {
+	const overall_subtotal = parseFloat(state.overall_subtotal);
+	const tax = parseFloat(state.tax);
+	const percent_tip = parseFloat(state.percent_tip)/100;
+
+	console.log(overall_subtotal, tax, percent_tip);
+
 	const updatedPersons = {};
+
+	var current_total_bill = 0;
+
+	const total_tip = ((overall_subtotal + tax) * percent_tip)
+	const total_bill = (overall_subtotal + tax + total_tip);
 	const stateCopy = {
 		...state,
 		persons: {...state.persons}
 	};
-	const percent_tax = state.tax / state.overall_subtotal;
+	const percent_tax = tax / overall_subtotal;
 	Object.keys(state.persons).forEach((personID) => {
 		const person = {...stateCopy.persons[personID]};
-		const total = (person.subtotal * (1+percent_tax) * (1+ (state.tip/100))).toFixed(2);
-		person.total = total;
-		updatedPersons[personID] = person;
+		if (person.subtotal.length > 0) {
+			const total = (parseFloat(person.subtotal) * (1+percent_tax) * (1+ percent_tip));
+			current_total_bill+=total;
+			person.total = total.toFixed(2);
+			updatedPersons[personID] = person;
+		}
 	})
+
+	var error;
+	
+	if (current_total_bill < total_bill) {
+		error = `Warning: Your total is ${total_bill.toFixed(2)} but you are currently at ${current_total_bill.toFixed(2)} so you may be paying less than you intended`;
+	}
+
+	if (current_total_bill > total_bill) {
+		error = `Warning: Your total is ${total_bill.toFixed(2)} but you are currently at ${current_total_bill.toFixed(2)} so you may be paying more than you intended`;
+	}
+
+	if (current_total_bill === total_bill) {
+		error = false;
+	}
+	
 	return {
 		...state,
-		persons: updatedPersons
+		error,
+		persons: updatedPersons,
+		total_tip: total_tip.toFixed(2),
+		total_bill: total_bill.toFixed(2)
 	};
 };
 

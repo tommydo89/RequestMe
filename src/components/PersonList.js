@@ -5,7 +5,7 @@ import { View, Text, ScrollView, TextInput, Keyboard } from 'react-native';
 import { Button, Input } from './common';
 import ColumnLabels from './columnLabels';
 import Person from './Person';
-import { calculate, addPerson, deletePerson, updateSubTaxTip, reset } from '../actions/actions';
+import { calculate, addPerson, deletePerson, updateSubTax, reset } from '../actions/actions';
 
 
 class PersonList extends Component {
@@ -46,7 +46,6 @@ class PersonList extends Component {
 const mapStateToProps = state => {
 	const listPersons = {...state.persons};
 	const focus = state.focused.index != null;
-	console.log(focus);
 	const persons = _.map(listPersons, (val, uuid) => {
 		return {
 			...val,

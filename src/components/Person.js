@@ -19,7 +19,6 @@ class Person extends Component {
 	}
 
 	render() {
-		console.log(this.props);
 		const { containerStyle, numStyle, nameStyle, subTotalContainerStyle, subTotalTextStyle, totalStyle } = styles;
 		const { index, name, subtotal, total, uuid } = this.props.person;
 		const { inputToFocus, inputFocus, changeInputFocus} = this.props;
