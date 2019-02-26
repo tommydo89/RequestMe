@@ -18,7 +18,7 @@ class PersonList extends Component {
 
 	renderPersons() {
 		return this.props.persons.map((person) => {
-			return <Person key={person.uuid} person={person} inputFocus={input => this.inputFocus = input} />;
+			return <Person key={person.uuid} person={person} inputFocus={input => this.inputFocus = input} scrollToEnd={this.props.scrollToEnd} />;
 		});
 	}
 
@@ -27,16 +27,7 @@ class PersonList extends Component {
 			<View style={{flex:1}}>
 				<ColumnLabels />
 				<View style={{flex:1}}>
-					<ScrollView 
-						keyboardShouldPersistTaps="never"
-						style={{flexGrow:0}}
-						ref={ref => this.scrollView = ref}
-						onContentSizeChange={(contentWidth, contentHeight)=>{        
-						    this.scrollView.scrollToEnd({animated: true});
-						}}
-					>
 						{this.renderPersons()}
-					</ScrollView>
 				</View>
 			</View>
 		);

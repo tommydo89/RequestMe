@@ -29,18 +29,21 @@ class AllButtons extends Component {
 			return <Text style={styles.errorStyle}>{this.props.error}</Text>;
 		} else {
 			return (
-				<Text style={styles.successStyle}>Total Tip: ${this.props.total_tip} Total Bill: ${this.props.total_bill}</Text>
+				<View>
+					<Text style={styles.tipStyle}>Total Tip: ${this.props.total_tip}</Text>
+					<Text style={styles.billStyle}>Total Bill: ${this.props.total_bill}</Text>
+				</View>
 			)
 		}
 	}
 
 	render() {
 
-		const { containerStyle } = styles;
+		const { plusMinusStyle } = styles;
 
 		return (
 			<View>	
-				<View style={containerStyle}>
+				<View style={plusMinusStyle}>
 					<Button onPress={() => this.onAdd()}>+</Button>
 					<Button onPress={() => this.onDelete()}>-</Button>
 				</View>
@@ -53,20 +56,30 @@ class AllButtons extends Component {
 }
 
 const styles = {
-	containerStyle: {
+	plusMinusStyle: {
 		flexDirection: 'row',
 		marginLeft:50,
 		marginRight:50,
-		alignSelf: 'center'
+		alignSelf: 'center',
+		marginTop: 10
 	},
 	errorStyle: {
-		fontSize: 18,
+		fontSize: 14,
 		color: 'red',
 		fontWeight: 'bold',
 		textAlign: 'center'
 	},
-	successStyle: {
-		fontSize:18,
+	tipStyle: {
+		fontSize:22,
+		color: 'black',
+		marginLeft:50,
+		marginRight:50,
+		alignSelf: 'center',
+		fontWeight:'bold',
+		marginTop:10
+	},
+	billStyle: {
+		fontSize:22,
 		color: 'black',
 		marginLeft:50,
 		marginRight:50,

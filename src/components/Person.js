@@ -12,7 +12,8 @@ class Person extends Component {
 
 	changeFocusHelper(nextIndex, nextInputType) {
 		if (nextIndex > Object.keys(this.props.persons).length) {
-			Keyboard.dismiss();
+			this.props.changeInputFocus(null, 'overall_subtotal');
+			this.props.scrollToEnd;
 		} else {
 			this.props.changeInputFocus(nextIndex, nextInputType);
 		}
@@ -34,6 +35,7 @@ class Person extends Component {
 						onChangeText={(text) => this.onChangeText(text, uuid, "name")}
 						onFocus={() => changeInputFocus(index, "name")}
 						onSubmitEditing={() => this.changeFocusHelper(index, "subtotal")}
+						blurOnSubmit={false}
 					/>
 					<View style={subTotalContainerStyle}>
 						<Text>$</Text>
@@ -46,9 +48,10 @@ class Person extends Component {
 							onChangeText={(text) => this.onChangeText(text, uuid, "subtotal")}
 							onFocus={() => changeInputFocus(index, "subtotal")}
 							onSubmitEditing={() => this.changeFocusHelper(index+1, "name")}
+							blurOnSubmit={false}
 						/>
 					</View>
-					<Text style={totalStyle}>{total}</Text>
+					<Text style={totalStyle}>${total}</Text>
 				</View>
 		);
 	}
@@ -66,7 +69,7 @@ const styles = {
 		borderWidth: 1,
 		marginLeft: 10,
 		marginRight: 10,
-		borderRadius: 2,
+		borderRadius: 10,
 		textAlign: 'center',
 		textAlignVertical: 'center',
 		fontSize: 18
@@ -76,7 +79,7 @@ const styles = {
 		flex: 6,
 		borderColor: '#ddd',
 		borderWidth: 1,
-		borderRadius: 2,
+		borderRadius: 10,
 		lineHeight:23,
 		textAlign: 'center',
 		textAlignVertical: 'center',
@@ -88,7 +91,7 @@ const styles = {
 		borderWidth: 1,
 		marginLeft: 10,
 		paddingLeft: 5,
-		borderRadius: 2,
+		borderRadius: 10,
 		alignItems: 'center',
 		flexDirection: 'row',
 		flex:2
@@ -104,7 +107,7 @@ const styles = {
 		borderWidth: 1,
 		marginLeft: 10,
 		marginRight: 10,
-		borderRadius: 2,
+		borderRadius: 10,
 		textAlign: 'center',
 		textAlignVertical: 'center',
 		fontSize: 18

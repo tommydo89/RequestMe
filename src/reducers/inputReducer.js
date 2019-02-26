@@ -3,19 +3,19 @@ import { UPDATE_PERSON, CHANGE_INPUT_FOCUS, CALCULATE, ADD_PERSON, DELETE_PERSON
 
 var initial_persons = {};
 
-for (i = 1; i <= 5; i++) {
+for (i = 1; i <= 4; i++) {
 	initial_persons[uuidv1()] = {
 		name: '',
 		index: i,
 		subtotal: '',
-		total: '-',
+		total: '',
 		error: false
 	}
 };
 
 const INITIAL_STATE = {
 	persons: initial_persons,
-	focused: 1,
+	focused: {},
 	tax: '',
 	percent_tip: '',
 	total_tip: '',
@@ -56,7 +56,7 @@ const calculate = (state) => {
 	var current_total_bill = 0;
 
 	const total_tip = ((overall_subtotal + tax) * percent_tip)
-	const total_bill = (overall_subtotal + tax + total_tip);
+	var total_bill = (overall_subtotal + tax + total_tip);
 	const stateCopy = {
 		...state,
 		persons: {...state.persons}
@@ -73,16 +73,18 @@ const calculate = (state) => {
 	})
 
 	var error;
+	current_total_bill = parseFloat(current_total_bill.toFixed(2));
+	total_bill = parseFloat(total_bill.toFixed(2));
 	
 	if (current_total_bill < total_bill) {
-		error = `Warning: Your total is ${total_bill.toFixed(2)} but you are currently at ${current_total_bill.toFixed(2)} so you may be paying less than you intended`;
+		error = `Warning: The total is $${total_bill} but you are requesting only $${current_total_bill} so you may be under-paying.`;
 	}
 
 	if (current_total_bill > total_bill) {
-		error = `Warning: Your total is ${total_bill.toFixed(2)} but you are currently at ${current_total_bill.toFixed(2)} so you may be paying more than you intended`;
+		error = `Warning: The total is $${total_bill} but you are requesting $${current_total_bill} so you may be over-paying.`;
 	}
 
-	if (current_total_bill === total_bill) {
+	if (current_total_bill == total_bill) {
 		error = false;
 	}
 	
@@ -101,7 +103,7 @@ const addPerson = (state) => {
 		name: '',
 		index: newIndex,
 		subtotal: '',
-		total:'-'
+		total:''
 	};
 	const stateCopy = {
 		...state,

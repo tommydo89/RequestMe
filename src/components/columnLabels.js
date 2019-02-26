@@ -3,13 +3,13 @@ import { View, Text } from 'react-native'
 
 const columnLabels = () => {
 	
-	const { containerStyle, numStyle, nameStyle, subTotalStyle, totalStyle} = styles;
+	const { containerStyle, numStyle, nameStyle, priceStyle, totalStyle} = styles;
 
 	return (
 		<View style={containerStyle}>
 			<Text style={numStyle}>#</Text>
 			<Text style={nameStyle}>Name</Text>
-			<Text style={subTotalStyle}>Sub-Total</Text>
+			<Text style={priceStyle}>Price</Text>
 			<Text style={totalStyle}>Total</Text>
 		</View>
 	);
@@ -29,7 +29,8 @@ const styles = {
 		borderWidth: 1,
 		marginLeft: 10,
 		marginRight: 10,
-		borderRadius: 2
+		borderRadius: 10,
+		fontSize: 15
 	},
 	nameStyle: {
 		flex: 6,
@@ -37,16 +38,18 @@ const styles = {
 		fontWeight: 'bold',
 		borderColor: '#ddd',
 		borderWidth: 1,
-		borderRadius: 2
+		borderRadius: 10,
+		fontSize: 15
 	},
-	subTotalStyle: {
+	priceStyle: {
 		flex: 2,
 		textAlign: 'center',
 		fontWeight: 'bold',
 		borderColor: '#ddd',
 		borderWidth: 1,
 		marginLeft: 10,
-		borderRadius: 2
+		borderRadius: 10,
+		fontSize: 15
 	},
 	totalStyle: {
 		flex: 2,
@@ -56,7 +59,8 @@ const styles = {
 		borderWidth: 1,
 		marginLeft: 10,
 		marginRight: 10,
-		borderRadius: 2
+		borderRadius: 10,
+		fontSize: 15
 	}
 };
 

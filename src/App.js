@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Provider } from 'react-redux';
 import { createStore } from 'redux';
-import { View, Keyboard, TouchableWithoutFeedback } from 'react-native';
+import { View, Keyboard, TouchableWithoutFeedback, ScrollView } from 'react-native';
 import { Header } from './components/common';
 import PersonList from './components/PersonList';
 import inputReducer from './reducers/inputReducer';
@@ -14,14 +14,21 @@ class App extends Component {
 
 		return (
 			<Provider store={store}>
-				<TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
 					<View style={{flex:1}}>
 						<Header headerText="RequestMe" />
-						<PersonList />
+						<ScrollView 
+						keyboardShouldPersistTaps="handled"
+						style={{flexGrow:0}}
+						ref={ref => this.scrollView = ref}
+						onContentSizeChange={(contentWidth, contentHeight)=>{        
+						    this.scrollView.scrollToEnd({animated: true});
+						}}
+						>
+						<PersonList scrollToEnd={() => this.scrollView.scrollToEnd({animated: true})}/>
 						<BillInput />
 						<AllButtons />
+						</ScrollView>
 					</View>
-				</TouchableWithoutFeedback>
 			</Provider>
 		);
 	};
