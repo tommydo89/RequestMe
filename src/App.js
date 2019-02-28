@@ -24,7 +24,7 @@ class App extends Component {
 						    this.scrollView.scrollToEnd({animated: true});
 						}}
 						>
-						<PersonList scrollToEnd={() => this.scrollView.scrollToEnd({animated: true})}/>
+						<PersonList />
 						<BillInput />
 						<AllButtons />
 						</ScrollView>
