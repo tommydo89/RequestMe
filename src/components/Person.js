@@ -28,6 +28,7 @@ class Person extends Component {
 					<Text style={numStyle}>{index}</Text>
 					<TextInput 
 						placeholder={`Person ${index} (Optional)`}
+						autoCorrect={false}
 						ref={(inputToFocus == "name") ? inputFocus : null}
 						style={nameStyle}
 						value={name}
