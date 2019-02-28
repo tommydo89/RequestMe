@@ -13,7 +13,6 @@ class Person extends Component {
 	changeFocusHelper(nextIndex, nextInputType) {
 		if (nextIndex > Object.keys(this.props.persons).length) {
 			this.props.changeInputFocus(null, 'overall_subtotal');
-			this.props.scrollToEnd;
 		} else {
 			this.props.changeInputFocus(nextIndex, nextInputType);
 		}
@@ -41,6 +40,7 @@ class Person extends Component {
 						<Text>$</Text>
 						<TextInput
 							keyboardType='numeric'
+							returnKeyType='done'
 							placeholder="0.00"
 							ref={(inputToFocus == "subtotal") ? inputFocus : null}
 							value={subtotal}

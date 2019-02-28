@@ -13,6 +13,7 @@ class Input extends Component {
 					<Text>{prefix}</Text>
 					<TextInput
 					keyboardType='numeric' 
+					returnKeyType='done'
 					secureTextEntry={secureTextEntry}
 					placeholder={placeholder}
 					autoCorrect={false}
