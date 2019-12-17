@@ -24,15 +24,25 @@ const INITIAL_STATE = {
 
 const updatePerson = (state, action) => {
 	const { text, uuid, inputType} = action.payload;
+	// const stateCopy = {
+	// 	...state,
+	// 	persons: {
+	// 		...state.persons,
+	// 		[uuid]: {
+	// 			...state.persons[uuid],
+	// 			[inputType]: text
+	// 		}
+	// 	}
+	// }
 	const stateCopy = {
 		...state,
 		persons: {
-			...state.persons,
-			[uuid]: {
-				...state.persons[uuid],
-				[inputType]: text
-			}
+			...state.persons
 		}
+	}
+	stateCopy.persons[uuid] = {
+		...state.persons[uuid],
+		[inputType]: text
 	}
 	return stateCopy;
 };

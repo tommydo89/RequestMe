@@ -18,7 +18,7 @@ class PersonList extends Component {
 
 	renderPersons() {
 		return this.props.persons.map((person) => {
-			return <Person key={person.uuid} person={person} inputFocus={input => this.inputFocus = input} scrollToEnd={this.props.scrollToEnd} />;
+			return <Person key={person.uuid} person={person} inputFocus={input => this.inputFocus = input} />;
 		});
 	}
 
